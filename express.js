@@ -10,6 +10,7 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const swaggerDocs = require("./src/helpers/swagger-output.json")
 const swaggerUi = require("swagger-ui-express");
+const logger = require('morgan')
 
 const exampleRoute = require('./src/routes/example.route');
 const { failed } = require('./src/helpers/response');
@@ -29,11 +30,7 @@ app.use(xss());
 app.use(bodyParser.json());
 
 // request logger
-const logger = (req, res, next) => {
-  console.log(`${req.method} ${req.path}`)
-  next()
-}
-app.use(logger)
+app.use(logger("dev"));
 
 // access folder public
 app.use(express.static('public'));
