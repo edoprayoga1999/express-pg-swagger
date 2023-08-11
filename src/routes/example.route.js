@@ -3,16 +3,10 @@ const {getData, postData, putData, deleteData} = require('../controllers/example
 
 const router = express.Router()
 
-router.route('/get')
-    .get(getData)
-
-router.route('/post')
-    .post(postData)
-
-router.route('/put')
-    .put(putData)
-
-router.route('/delete/:paramsId')
-    .delete(deleteData)
+router
+    .get('/get', getData)
+    .post('/post', postData)
+    .put('/put', putData)
+    .delete('/delete/:paramsId', deleteData)
 
 module.exports = router

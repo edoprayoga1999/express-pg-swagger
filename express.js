@@ -1,7 +1,8 @@
 const {
     npm_package_name,
     npm_package_version,
-    PORT
+    PORT,
+    NODE_ENV
 } = require('./src/helpers/env')
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -17,20 +18,23 @@ const { failed } = require('./src/helpers/response');
 
 const app = express();
 const allowedOrigin = ['http://localhost', 'http://localhost:3000']
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+
 app.use(cors({
   origin: allowedOrigin
 }));
 app.use(
-	helmet({
-		crossOriginResourcePolicy: false,
+  helmet({
+    crossOriginResourcePolicy: false,
 	})
-);
-app.use(xss());
-app.use(bodyParser.json());
-
-// request logger
-app.use(logger("dev"));
+  );
+  app.use(xss());
+  app.use(bodyParser.json());
+  
+  if (NODE_ENV === 'development') {
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+    // request logger
+    app.use(logger("dev"));
+  }
 
 // access folder public
 app.use(express.static('public'));
@@ -43,7 +47,7 @@ app.get("/", (req, res) => {
 	});
 });
 
-app.use(exampleRoute)
+app.use("/example", exampleRoute)
 
 // Not Found
 app.use((req, res) => {

@@ -1,11 +1,15 @@
 {
+  "//": "If you are in windows environment, use :windows script",
   "name": "express-swagger-boilerplate",
   "version": "1.0.0",
   "description": "Express with swagger boilerplate",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "NODE_ENV=production node express.js",
+    "start:windows": "SET NODE_ENV=production & node express.js",
+    "dev": "NODE_ENV=development node index.js",
+    "dev:windows": "SET NODE_ENV=development & node index.js"
   },
   "author": "Edo Prayoga",
   "license": "ISC",
