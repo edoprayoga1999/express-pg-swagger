@@ -1,5 +1,14 @@
 const response = {
     // for success execution
+    // example: success(res, {
+    //     code: 200,
+    //     status: true,
+    //     message: 'example message',
+    //     data: [],
+    //     pagination: {
+    //         everything for pagination
+    //     }
+    // })
       success: (res, payload) => {
           const {
               code,
@@ -19,7 +28,12 @@ const response = {
   
           res.status(code).json(response);
       },
+
     // for failed execution
+    // example: failed(res, {
+    //     code: 500,
+    //     error: 'Internal server error'
+    // })
       failed: (res, payload) => {
           const { code, error } = payload;
   
